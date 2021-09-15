@@ -1,6 +1,8 @@
 'use strict'
 const { Model } = require('sequelize');
 
+const { removeFile } = require('../src/services/removeFile')
+
 module.exports = (sequelize, DataTypes) => {
     class User extends Model {
         static associate(models) {
@@ -45,7 +47,12 @@ module.exports = (sequelize, DataTypes) => {
         }
     },
     { sequelize, modelName: 'User' })
+
+    User.afterUpdate(async user => {
+        if (user.dataValues.imageUrl !== user._previousDataValues.imageUrl) {
+            await removeFile(user._previousDataValues.imageUrl)
+        }
+    })
     
     return User
-    console.log("User init")
 }

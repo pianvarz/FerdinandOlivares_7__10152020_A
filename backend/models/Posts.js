@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
         static associate (models) {
             Post.belongsTo(models.User, { foreignKey: 'userId' })
             // Post.hasMany(models.Comments)
-            // Post.hasMany(models.Likes)
+            Post.hasMany(models.Likes)
         }
 
         timeStamp(){
@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
     Post.init({
         content: DataTypes.STRING,
         imageUrl: DataTypes.STRING,
-        // likesCount: DataTypes.INTEGER
+        likesCount: DataTypes.INTEGER,
         userId: {
             type: DataTypes.INTEGER,
             references: {

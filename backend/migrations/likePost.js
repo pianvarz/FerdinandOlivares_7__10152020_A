@@ -1,15 +1,14 @@
-// 'use strict'
+'user strict'
 
-// module.exports = {
-//     up: async (queryInterface, Sequelize) => {
-//         queryInterface.addColumn('Posts', 'likesCount', {
-//             type: Sequelize.INTEGER
-//         })
-//     },
-
-//     down: async (queryInterface, Sequelize) => {
-//         queryInterface.removeColumn('Posts', 'likesCount', {
-//             type: Sequelize.STRING
-//         })
-//     }
-// }
+module.exports = {
+    up: async (queryInterface, Sequelize) => {
+        queryInterface.addColumn('Posts', 'likesCount', {
+            types: Sequelize.INTEGER
+        })
+    }, 
+    down: async (queryInterface, Sequelize) => {
+        queryInterface.removeColumn('Posts', 'likesCount', {
+            types: Sequelize.STRING
+        })
+    }
+}

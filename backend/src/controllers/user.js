@@ -49,7 +49,8 @@ exports.signup = (req, res, next) => {
                     firstName: req.body.firstName,
                     lastName: req.body.lastName,
                     email: req.body.email,
-                    password: hash
+                    password: hash,
+                    imageUrl: req.body.imageUrl
                 })
             })
             .then(user => res.status(201).json(tokened(user)))
@@ -82,4 +83,19 @@ exports.login = (req, res, next) => {
             .catch(error => res.status(500).json({ error: error.message }))
         }
     })
+}
+
+ exports.editUser = (req, res, next) => {
+   try {
+       const userObject = req.file 
+       ? {
+           ...JSON.parse(req.body.user),
+           imageUrl: `${req.protocol}://${req.get('host')}/public/${ req.file.filename }`
+       } : { ...req.body }
+       console.log(userObject)
+       req.user.update(userObject)
+         .then(user => res.status(200).json({ user }))
+   } catch (error) {
+       res.status(400).json({ error })
+   }
 }

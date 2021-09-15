@@ -70,7 +70,8 @@ export default {
         firstName: '',
         lastName: '',
         email: '', 
-        password: ''
+        password: '',
+        imageUrl: 'default.jpg'
       }
     }
   },
@@ -89,7 +90,7 @@ export default {
             if (token) {
               localStorage.setItem('userToken', token)
               localStorage.setItem('userData', JSON.stringify(user))
-              router.push({ to: '/home' })
+              router.push({ name: 'Home' })
             }
           })
       } else  {

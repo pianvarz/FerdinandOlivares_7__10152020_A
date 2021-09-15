@@ -59,9 +59,6 @@ exports.createPost = async (req, res, next) => {  //Create Post
 }
 
 exports.getPost = async (req, res, next) => { //Get one post
-    const token = req.headers.authorization.split(' ')[1]
-    const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET')
-    const userId = decodedToken.userId
     db.Post.findOne({
         where: { id: params.id },
         include: [

@@ -4,16 +4,19 @@
             <b-col>
                 <b-card>
                     <b-form @submit="changeDetails">
-                        <ProfileImg 
-                        @click="engageUpload"
-                        :src="url || user.Data.imageUrl"
-                        customClass="profile-main-picture"
-                        divCustomClass="div-main-picture" />
-                      <b-form-group>
-                            <button @click="engageUpload"
+                            <div>                            
+                                <ProfileImg 
+                                    @click="engageUpload"
+                                    :src="url || userData.imageUrl"
+                                    customClass="profile-main-picture"
+                                    divCustomClass="div-main-picture" />
+                            </div>
+                            <img v-if="url" :src="url" alt="">
+                        <b-form-group>
+                                <button @click="engageUpload"
                                     type="button">
-                                Change Profile Picture
-                            </button>
+                                    Change Profile Picture
+                                </button>
                            <div>
                              <b-col>
                                <input ref="fileUpload"
@@ -35,7 +38,7 @@
                              </b-col> 
                            </div>
                            <div>
-                             <b-col calls="d-none">
+                             <b-col class="d-none">
                                <label for="lastName"> Last Name </label>
                              </b-col>  
                              <b-col>
@@ -88,7 +91,6 @@
 </template>
 
 <script>
-import PostsList from '../components/PostsList.vue'
 import ProfileImg from '../components/ProfileImg.vue'
 import { apiClient } from '../services/apiClient'
 
@@ -96,7 +98,6 @@ export default {
     name: 'Profile',
     component: {
         ProfileImg,
-        PostsList
     },
     data () {
         const userData = JSON.parse(localStorage.getItem('userData'))
@@ -122,7 +123,7 @@ export default {
             this.$refs.fileUpload.click()
         },
 
-        async changeDetails (event) {
+        async changeDetails () {
             let body = this.input
 
             const needsForm = !!this.selectedFile
@@ -137,7 +138,7 @@ export default {
             .then(res => {
                 localStorage.setItem('userData', JSON.stringify(res.user))
                 this.userData = res.user
-                window.location.reload(event)
+                window.location.reload()
             })
         }
     }, 
@@ -149,3 +150,18 @@ export default {
     },
 }
 </script>
+<style scoped>
+.d-none  {
+    display: none;
+}
+
+.div-main-picture {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 20px;
+}
+.profile-main-picture {
+    height: 100px;
+}
+
+</style>

@@ -1,5 +1,5 @@
 'use strict'
-module.exports = {
+module.exports =  {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('Likes', {
       id: {
@@ -14,7 +14,7 @@ module.exports = {
       userId: {
         type: Sequelize.INTEGER
       },
-      createdAt: {
+      createAt: {
         allowNull: false,
         type: Sequelize.DATE
       },
@@ -23,7 +23,7 @@ module.exports = {
         type: Sequelize.DATE
       }
     })
-    queryInterface.addIndex('Likes', ['postId', 'userId'], {
+    queryInterface.addIndex('Likes', ['postID', 'userId]'], {
       unique: true
     })
   },
